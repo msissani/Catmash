@@ -26,44 +26,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         //function that will fetch the JSON
         getJsonFromUrl();
-        showImage();
-        
-        
-        let session = URLSession(configuration: .default)
-        
-        //creating a dataTask
-        let getImageFromUrl = session.dataTask(with: URL_IMAGE!) { (data, response, error) in
-            
-            //if there is any error
-            if let e = error {
-                //displaying the message
-                print("Error Occurred: \(e)")
-                
-            } else {
-                //in case of now error, checking wheather the response is nil or not
-                if (response as? HTTPURLResponse) != nil {
-                    
-                    //checking if the response contains an image
-                    if let imageData = data {
-                        
-                        //getting the image
-                        let image = UIImage(data: imageData)
-                        
-                        //displaying the image
-                        self.imageViewCat.image = image
-                        
-                    } else {
-                        print("Image file is currupted")
-                    }
-                } else {
-                    print("No response from server")
-                }
-            }
-        }
-        
-        //starting the download task
-        getImageFromUrl.resume()
-
+   //     showImage();
     }
 
     override func didReceiveMemoryWarning() {
@@ -113,7 +76,7 @@ class ViewController: UIViewController {
                     //it will show the names to label
                     self.showNames()
                     print(self.nameArray.count)
-               //     self.showImage()
+                    self.showImage()
                 })
             }
         }).resume()
@@ -133,8 +96,45 @@ class ViewController: UIViewController {
     
          //   imageViewCat.image = imageCatArray[0]
         
+        let session = URLSession(configuration: .default)
+        
+        let random:Int = Int(arc4random_uniform(100));
+        print("HELLLLLLLLO")
+        print(urlArray[random])
 
         
+        //creating a dataTask
+        //let getImageFromUrl = session.dataTask(with: URL_IMAGE!) { (data, response, error) in
+        let getImageFromUrl = session.dataTask(with: URL(string: urlArray[random])!) { (data, response, error) in
+            //if there is any error
+            if let e = error {
+                //displaying the message
+                print("Error Occurred: \(e)")
+                
+            } else {
+                //in case of now error, checking wheather the response is nil or not
+                if (response as? HTTPURLResponse) != nil {
+                    
+                    //checking if the response contains an image
+                    if let imageData = data {
+                        
+                        //getting the image
+                        let image = UIImage(data: imageData)
+                        
+                        //displaying the image
+                        self.imageViewCat.image = image
+                        
+                    } else {
+                        print("Image file is currupted")
+                    }
+                } else {
+                    print("No response from server")
+                }
+            }
+        }
+        
+        //starting the download task
+        getImageFromUrl.resume()
     }
 }
 
