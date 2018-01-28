@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelTest: UILabel!
     @IBOutlet weak var imageViewCat: UIImageView!
     
-    
+     
     var nameArray = [String]()
     var urlArray = [String]()
     var imageCatArray = [UIImage]()
